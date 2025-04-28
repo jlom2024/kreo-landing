@@ -17,6 +17,20 @@
       text-align: center;
       padding: 80px 20px 40px;
       background: linear-gradient(180deg, #0a0a0a 0%, #1c1c1c 100%);
+      background-image: url('images/fondo-soñado.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+    }
+    header img {
+      height: 120px;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeIn 2s forwards;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
     }
     header h1 {
       font-size: 3em;
@@ -85,10 +99,12 @@
       border-radius: 5px;
       font-weight: bold;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: all 0.3s ease;
     }
     .contact-form button:hover {
       background: #ff8533;
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #ff8533;
     }
 
     .carousel {
@@ -144,7 +160,7 @@
 <body>
 
 <header>
-  <img src="LogoR.png" alt="KREO IA Studio Logo" style="height: 120px; margin-bottom: 20px;">
+  <img src="LogoR.png" alt="KREO IA Studio Logo">
   <h1>KREO IA Studio</h1>
   <p>Creamos realidades. Contamos historias. Impulsamos sueños.</p>
   <nav>
@@ -238,6 +254,7 @@ updateCarousel();
 
 </body>
 </html>
+
 
 
 
