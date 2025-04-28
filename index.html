@@ -45,21 +45,126 @@
 </head>
 <body>
 
-<!-- el resto permanece igual -->
+<header>
+  <img src="LogoR.png" alt="KREO IA Studio Logo">
+  <h1>KREO IA Studio</h1>
+  <p>Creamos realidades. Contamos historias. Impulsamos sueños.</p>
+  <nav>
+    <a href="#quienes-somos">¿Quiénes Somos?</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#portfolio">Portafolio</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+  <div class="burbuja-latido">
+    <img src="images/representacion-burbuja.png" alt="Inspiración de IA">
+  </div>
+</header>
+
+<section id="quienes-somos">
+  <h2>¿Quiénes Somos?</h2>
+  <p>En KREO IA Studio fusionamos creatividad, inteligencia artificial y pasión humana para transformar ideas en realidades impactantes.</p>
+</section>
+
+<section id="servicios">
+  <h2>Servicios</h2>
+  <div class="services">
+    <div class="service" style="background: url('images/carteleras.jpg') center/cover no-repeat;">
+      <h3>Carteleras Cinematográficas</h3>
+      <p>Historias visuales que capturan miradas y emociones.</p>
+    </div>
+    <div class="service" style="background: url('images/satiras.jpg') center/cover no-repeat;">
+      <h3>Sátiras Políticas</h3>
+      <p>Ironía elegante y crítica inteligente, siempre impactante.</p>
+    </div>
+    <div class="service" style="background: url('images/memes.jpg') center/cover no-repeat;">
+      <h3>Memes Realistas</h3>
+      <p>Humor visualmente impecable, con estilo y potencia.</p>
+    </div>
+    <div class="service" style="background: url('images/storytelling.jpg') center/cover no-repeat;">
+      <h3>Storytelling para Marcas</h3>
+      <p>Relatos visuales que enamoran, venden y trascienden.</p>
+    </div>
+  </div>
+</section>
+
+<section id="portfolio">
+  <h2>Portafolio</h2>
+  <div class="carousel">
+    <div class="carousel-track">
+      <img src="images/img1.jpg" alt="Proyecto 1">
+      <img src="images/img2.jpg" alt="Proyecto 2">
+      <img src="images/img3.jpg" alt="Proyecto 3">
+      <img src="images/img4.jpg" alt="Proyecto 4">
+      <img src="images/img5.jpg" alt="Proyecto 5">
+      <img src="images/img6.jpg" alt="Proyecto 6">
+      <img src="images/img7.jpg" alt="Proyecto 7">
+    </div>
+    <button class="carousel-btn prev">‹</button>
+    <button class="carousel-btn next">›</button>
+  </div>
+</section>
+
+<section id="contacto">
+  <h2>Contacto</h2>
+  <form action="https://formspree.io/f/mkgronyd" method="POST" class="contact-form">
+    <input type="text" name="name" placeholder="Tu Nombre" required autocomplete="name">
+    <input type="email" name="email" placeholder="Tu Correo" required autocomplete="email">
+    <textarea name="message" rows="5" placeholder="Tu Mensaje" required autocomplete="on"></textarea>
+    <button type="submit">Enviar Mensaje</button>
+  </form>
+</section>
+
+<footer><p>KREO IA Studio © 2025 | Todos los derechos reservados</p></footer>
 
 <script>
-  // Microloader al enviar formulario
+  // Scroll reveal
+  const sections = document.querySelectorAll('section');
+  window.addEventListener('scroll', () => {
+    const trigger = window.innerHeight / 1.2;
+    sections.forEach(sec => { if (sec.getBoundingClientRect().top < trigger) sec.classList.add('visible'); });
+  });
+
+  // Carousel with autoplay
+  const track = document.querySelector('.carousel-track');
+  const images = Array.from(track.children);
+  const prevBtn = document.querySelector('.carousel-btn.prev');
+  const nextBtn = document.querySelector('.carousel-btn.next');
+  let index = 0;
+  function updateCarousel() {
+    const width = images[0].clientWidth;
+    track.style.transform = `translateX(-${index*width}px)`;
+    images.forEach(img => img.classList.toggle('active', images.indexOf(img)===index));
+  }
+  prevBtn.addEventListener('click', () => { index = (index-1+images.length)%images.length; updateCarousel(); });
+  nextBtn.addEventListener('click', () => { index = (index+1)%images.length; updateCarousel(); });
+  setInterval(() => { index = (index+1)%images.length; updateCarousel(); }, 4000);
+  updateCarousel();
+
+  // Microloader y mensaje de éxito al enviar formulario
   const form = document.querySelector('.contact-form');
   const submitButton = form.querySelector('button');
   const loadingText = document.createElement('div');
   loadingText.className = 'loading';
   loadingText.textContent = 'Enviando...';
+  const successText = document.createElement('div');
+  successText.className = 'loading';
+  successText.style.display = 'none';
+  successText.style.color = '#00ff66';
+  successText.textContent = '¡Gracias! Tu mensaje fue enviado.';
   form.appendChild(loadingText);
+  form.appendChild(successText);
 
   form.addEventListener('submit', (e) => {
     loadingText.style.display = 'block';
     submitButton.disabled = true;
     submitButton.style.opacity = '0.6';
+    setTimeout(() => {
+      loadingText.style.display = 'none';
+      successText.style.display = 'block';
+      form.reset();
+      submitButton.disabled = false;
+      submitButton.style.opacity = '1';
+    }, 3000);
   });
 </script>
 
