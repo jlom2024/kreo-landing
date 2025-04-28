@@ -24,13 +24,11 @@
       position: relative;
       text-align: center;
       padding: 60px 20px;
-      /* Ocupa toda la altura de la ventana para permitir scroll del background */
       min-height: 100vh;
       background: linear-gradient(180deg, rgba(10,10,10,0.8) 0%, rgba(28,28,28,0.8) 100%), url('images/fondo-soñado.jpg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      /* Fijo para parallax: el background se queda y se ve al hacer scroll */
       background-attachment: fixed;
       overflow: hidden;
     }
@@ -119,23 +117,28 @@
       gap: 15px;
     }
 
-    .contact-form input, .contact-form textarea {
+    .contact-form input,
+    .contact-form textarea {
       padding: 10px;
       border: none;
       border-radius: 5px;
       background: #2a2a2a;
       color: #fff;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .contact-form button {
       background: #ff6600;
       color: #fff;
-      padding: 10px;
+      padding: 12px;
       border: none;
       border-radius: 5px;
       font-weight: bold;
       cursor: pointer;
       transition: all 0.3s ease;
+      width: 150px;
+      align-self: flex-start;
     }
 
     .contact-form button:hover {
@@ -249,10 +252,12 @@
 
 <section id="contacto">
   <h2>Contacto</h2>
-  <form class="contact-form">
-    <input type="text" placeholder="Tu Nombre">
-    <input type="email" placeholder="Tu Correo">
-    <textarea rows="5" placeholder="Tu Mensaje"></textarea>
+  <form name="contact" method="POST" action="mailto:kreoiastudioperu@gmail.com" enctype="text/plain" class="contact-form">
+    <input type="hidden" name="form-name" value="contact">
+    <p hidden><label>Deja este campo vacío: <input name="bot-field"></label></p>
+    <input name="name" type="text" placeholder="Tu Nombre" required>
+    <input name="email" type="email" placeholder="Tu Correo" required>
+    <textarea name="message" rows="5" placeholder="Tu Mensaje" required></textarea>
     <button type="submit">Enviar Mensaje</button>
   </form>
 </section>
@@ -260,6 +265,18 @@
 <footer><p>KREO IA Studio © 2025 | Todos los derechos reservados</p></footer>
 
 <script>
+// Scroll reveal
+const sections = document.querySelectorAll('section');
+window.addEventListener('scroll', () => {
+  const trigger = window.innerHeight / 1.2;
+  sections.forEach(section => {
+    if (section.getBoundingClientRect().top < trigger) {
+      section.classList.add('visible');
+    }
+  });
+});
+
+// Carousel functionality
 const track = document.querySelector('.carousel-track');
 const prevBtn = document.querySelector('.carousel-btn.prev');
 const nextBtn = document.querySelector('.carousel-btn.next');
@@ -268,12 +285,14 @@ let index = 0;
 
 nextBtn.addEventListener('click', () => { index = (index + 1) % images.length; updateCarousel(); });
 prevBtn.addEventListener('click', () => { index = (index - 1 + images.length) % images.length; updateCarousel(); });
-function updateCarousel() { const width = images[0].clientWidth; track.style.transform = `translateX(-${index * width}px)`; images.forEach(img => img.classList.remove('active')); images[index].classList.add('active'); }
-updateCarousel();
 
-// Scroll reveal
-const sections = document.querySelectorAll('section');
-window.addEventListener('scroll', () => { const trigger = window.innerHeight / 1.2; sections.forEach(section => { if (section.getBoundingClientRect().top < trigger) section.classList.add('visible'); }); });
+function updateCarousel() {
+  const width = images[0].clientWidth;
+  track.style.transform = `translateX(-${index * width}px)`;
+  images.forEach(img => img.classList.remove('active'));
+  images[index].classList.add('active');
+}
+updateCarousel();
 </script>
 
 </body>
