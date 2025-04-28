@@ -15,11 +15,9 @@
       opacity: 0;
       animation: fadeInBody 2s forwards;
     }
-
     @keyframes fadeInBody {
       to { opacity: 1; }
     }
-
     header {
       position: relative;
       text-align: center;
@@ -32,7 +30,6 @@
       background-attachment: fixed;
       overflow: hidden;
     }
-
     header img {
       height: 120px;
       margin-bottom: 20px;
@@ -41,18 +38,15 @@
       z-index: 5;
       position: relative;
     }
-
     @keyframes fadeIn {
       to { opacity: 1; }
     }
-
     nav {
       text-align: center;
       margin: 30px 0;
       position: relative;
       z-index: 5;
     }
-
     nav a {
       color: #ff6600;
       text-decoration: none;
@@ -60,7 +54,6 @@
       font-weight: bold;
       font-size: 1em;
     }
-
     .burbuja-latido {
       position: absolute;
       top: 20px;
@@ -69,17 +62,14 @@
       animation: latido 2s infinite ease-in-out;
       transform-origin: center;
     }
-
     .burbuja-latido img {
       width: 120px;
       display: block;
     }
-
     @keyframes latido {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.05); }
     }
-
     section {
       max-width: 1000px;
       margin: auto;
@@ -88,35 +78,29 @@
       transform: translateY(20px);
       transition: opacity 0.6s ease-out, transform 0.6s ease-out;
     }
-
     section.visible {
       opacity: 1;
       transform: translateY(0);
     }
-
     h2 {
       color: #ff6600;
       margin-bottom: 20px;
     }
-
     .services {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 30px;
     }
-
     .service {
       background: #1a1a1a;
       padding: 20px;
       border-radius: 10px;
     }
-
     .contact-form {
       display: flex;
       flex-direction: column;
       gap: 15px;
     }
-
     .contact-form input,
     .contact-form textarea {
       padding: 10px;
@@ -127,7 +111,6 @@
       width: 100%;
       box-sizing: border-box;
     }
-
     .contact-form button {
       background: #ff6600;
       color: #fff;
@@ -140,13 +123,11 @@
       width: 150px;
       align-self: flex-start;
     }
-
     .contact-form button:hover {
       background: #ff8533;
       transform: scale(1.05);
       box-shadow: 0 0 10px #ff8533;
     }
-
     footer {
       text-align: center;
       padding: 30px 20px;
@@ -155,7 +136,6 @@
       color: #666;
       margin-top: 40px;
     }
-
     .carousel {
       position: relative;
       overflow: hidden;
@@ -163,12 +143,10 @@
       margin: 40px auto;
       border-radius: 10px;
     }
-
     .carousel-track {
       display: flex;
       transition: transform 0.5s ease-in-out;
     }
-
     .carousel-track img {
       width: 100%;
       height: auto;
@@ -176,11 +154,9 @@
       border-radius: 10px;
       transition: transform 0.5s ease-in-out;
     }
-
     .carousel-track img.active {
       transform: scale(1.05);
     }
-
     .carousel-btn {
       position: absolute;
       top: 50%;
@@ -193,12 +169,9 @@
       padding: 0 10px;
       border-radius: 50%;
     }
-
     .carousel-btn.prev { left: 10px; }
     .carousel-btn.next { right: 10px; }
-
     .carousel-btn:hover { background: #ff8533; }
-
     @media (max-width: 768px) {
       .carousel { max-width: 90%; }
       .burbuja-latido img { width: 80px; }
@@ -252,7 +225,7 @@
 
 <section id="contacto">
   <h2>Contacto</h2>
-  <form name="contact" method="POST" action="mailto:kreoiastudioperu@gmail.com" enctype="text/plain" class="contact-form">
+  <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="contact-form">
     <input type="hidden" name="form-name" value="contact">
     <p hidden><label>Deja este campo vacío: <input name="bot-field"></label></p>
     <input name="name" type="text" placeholder="Tu Nombre" required>
@@ -265,34 +238,40 @@
 <footer><p>KREO IA Studio © 2025 | Todos los derechos reservados</p></footer>
 
 <script>
-// Scroll reveal
-const sections = document.querySelectorAll('section');
-window.addEventListener('scroll', () => {
-  const trigger = window.innerHeight / 1.2;
-  sections.forEach(section => {
-    if (section.getBoundingClientRect().top < trigger) {
-      section.classList.add('visible');
-    }
+  // Scroll reveal
+  const sections = document.querySelectorAll('section');
+  window.addEventListener('scroll', () => {
+    const trigger = window.innerHeight / 1.2;
+    sections.forEach(section => {
+      if (section.getBoundingClientRect().top < trigger) {
+        section.classList.add('visible');
+      }
+    });
   });
-});
 
-// Carousel functionality
-const track = document.querySelector('.carousel-track');
-const prevBtn = document.querySelector('.carousel-btn.prev');
-const nextBtn = document.querySelector('.carousel-btn.next');
-const images = document.querySelectorAll('.carousel-track img');
-let index = 0;
+  // Carousel functionality
+  const track = document.querySelector('.carousel-track');
+  const prevBtn = document.querySelector('.carousel-btn.prev');
+  const nextBtn = document.querySelector('.carousel-btn.next');
+  const images = document.querySelectorAll('.carousel-track img');
+  let index = 0;
 
-nextBtn.addEventListener('click', () => { index = (index + 1) % images.length; updateCarousel(); });
-prevBtn.addEventListener('click', () => { index = (index - 1 + images.length) % images.length; updateCarousel(); });
+  nextBtn.addEventListener('click', () => {
+    index = (index + 1) % images.length;
+    updateCarousel();
+  });
+  prevBtn.addEventListener('click', () => {
+    index = (index - 1 + images.length) % images.length;
+    updateCarousel();
+  });
 
-function updateCarousel() {
-  const width = images[0].clientWidth;
-  track.style.transform = `translateX(-${index * width}px)`;
-  images.forEach(img => img.classList.remove('active'));
-  images[index].classList.add('active');
-}
-updateCarousel();
+  function updateCarousel() {
+    const width = images[0].clientWidth;
+    track.style.transform = `translateX(-${index * width}px)`;
+    images.forEach(img => img.classList.remove('active'));
+    images[index].classList.add('active');
+  }
+  updateCarousel();
 </script>
 
 </body>
