@@ -22,13 +22,17 @@
 
     header {
       text-align: center;
-      padding: 80px 20px 40px;
-      background: linear-gradient(180deg, #0a0a0a 0%, #1c1c1c 100%);
-      background-image: url('images/fondo-soñado.jpg');
+      /* Reducción de padding para disminuir altura del header */
+      padding: 60px 20px;
+      /* Altura mínima más controlada */
+      min-height: 300px;
+      /* Overlay suave y fondo con imagen */
+      background: linear-gradient(180deg, rgba(10,10,10,0.8) 0%, rgba(28,28,28,0.8) 100%), url('images/fondo-soñado.jpg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      background-attachment: fixed;
+      /* Eliminamos el fondo fijo para mejor responsividad */
+      background-attachment: scroll;
       position: relative;
     }
 
@@ -301,15 +305,10 @@ window.addEventListener('scroll', () => {
   const trigger = window.innerHeight / 1.2;
   sections.forEach(section => {
     const sectionTop = section.getBoundingClientRect().top;
-    if (sectionTop < trigger) {
-      section.classList.add('visible');
-    }
+    if (sectionTop < trigger) section.classList.add('visible');
   });
 });
 </script>
 
 </body>
 </html>
-
-
-
