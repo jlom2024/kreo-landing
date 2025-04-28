@@ -225,8 +225,10 @@
 
 <section id="contacto">
   <h2>Contacto</h2>
-  <form name="contact" action="/" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" autocomplete="on" class="contact-form">
+  <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" autocomplete="on" class="contact-form">
     <input type="hidden" name="form-name" value="contact">
+    <!-- Redirigir de vuelta al inicio tras envío para evitar 404 -->
+    <input type="hidden" name="redirect" value="/">
     <p hidden><label>Deja este campo vacío: <input name="bot-field" autocomplete="off"></label></p>
     <input name="name" type="text" placeholder="Tu Nombre" required autocomplete="name">
     <input name="email" type="email" placeholder="Tu Correo" required autocomplete="email">
