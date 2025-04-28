@@ -93,22 +93,41 @@
 
 <section id="contacto">
   <h2>Contacto</h2>
-  <form id="contactForm" name="contact" action="/" method="POST" data-netlify="true" class="contact-form" autocomplete="on">
-    <input type="hidden" name="form-name" value="contact">
-    <p hidden><label>Deja este campo vacío: <input name="bot-field" autocomplete="off"></label></p>
-    <input name="name" type="text" placeholder="Tu Nombre" required autocomplete="name">
-    <input name="email" type="email" placeholder="Tu Correo" required autocomplete="email">
+  <form action="https://formspree.io/f/mkgronyd" method="POST" class="contact-form">
+    <input type="text" name="name" placeholder="Tu Nombre" required autocomplete="name">
+    <input type="email" name="email" placeholder="Tu Correo" required autocomplete="email">
     <textarea name="message" rows="5" placeholder="Tu Mensaje" required autocomplete="on"></textarea>
     <button type="submit">Enviar Mensaje</button>
   </form>
-  <div id="successMessage" style="display:none; color:#ff6600; margin-top:20px;">
-    ¡Gracias! Tu mensaje ha sido enviado correctamente.
-  </div>
 </section>
 
 <footer><p>KREO IA Studio © 2025 | Todos los derechos reservados</p></footer>
 
+<script>
+  // Scroll reveal
+  const sections = document.querySelectorAll('section');
+  window.addEventListener('scroll', () => {
+    const trigger = window.innerHeight / 1.2;
+    sections.forEach(sec => { if (sec.getBoundingClientRect().top < trigger) sec.classList.add('visible'); });
+  });
+</script>
 
+<script>
+  // Carousel
+  const track = document.querySelector('.carousel-track');
+  const images = Array.from(track.children);
+  const prevBtn = document.querySelector('.carousel-btn.prev');
+  const nextBtn = document.querySelector('.carousel-btn.next');
+  let index = 0;
+  function updateCarousel() {
+    const width = images[0].clientWidth;
+    track.style.transform = `translateX(-${index*width}px)`;
+    images.forEach(img => img.classList.toggle('active', images.indexOf(img)===index));
+  }
+  prevBtn.addEventListener('click', () => { index = (index-1+images.length)%images.length; updateCarousel(); });
+  nextBtn.addEventListener('click', () => { index = (index+1)%images.length; updateCarousel(); });
+  updateCarousel();
+</script>
 
 </body>
 </html>
