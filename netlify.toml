@@ -1,3 +1,0 @@
-[build]
-  # Publica todo lo que hay en la raíz de tu repo
-  publish = "."
