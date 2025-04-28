@@ -225,13 +225,18 @@
 
 <section id="contacto">
   <h2>Contacto</h2>
-  <!-- Formulario que envía por correo directamente al receptor -->
-  <form action="mailto:kreoiastudioperu@gmail.com" method="POST" enctype="text/plain" class="contact-form">
+  <!-- Formulario Ajax seguro para Netlify sin recarga -->
+  <form id="contactForm" name="contact" method="POST" data-netlify="true" class="contact-form" autocomplete="on">
+    <input type="hidden" name="form-name" value="contact">
+    <p hidden><label>Deja este campo vacío: <input name="bot-field" autocomplete="off"></label></p>
     <input name="name" type="text" placeholder="Tu Nombre" required autocomplete="name">
     <input name="email" type="email" placeholder="Tu Correo" required autocomplete="email">
     <textarea name="message" rows="5" placeholder="Tu Mensaje" required autocomplete="on"></textarea>
     <button type="submit">Enviar Mensaje</button>
   </form>
+  <div id="successMessage" style="display:none; color:#ff6600; margin-top:20px;">
+    ¡Gracias! Tu mensaje ha sido enviado correctamente.
+  </div>
 </section>
 
 <footer><p>KREO IA Studio © 2025 | Todos los derechos reservados</p></footer>
@@ -258,19 +263,27 @@
   nextBtn.addEventListener('click', () => {
     index = (index + 1) % images.length;
     updateCarousel();
-  });
-  prevBtn.addEventListener('click', () => {
-    index = (index - 1 + images.length) % images.length;
-    updateCarousel();
-  });
+}
+updateCarousel();
+</script>
 
-  function updateCarousel() {
-    const width = images[0].clientWidth;
-    track.style.transform = `translateX(-${index * width}px)`;
-    images.forEach(img => img.classList.remove('active'));
-    images[index].classList.add('active');
-  }
-  updateCarousel();
+<!-- Script para envío AJAX del formulario -->
+<script>
+  const contactForm = document.getElementById('contactForm');
+  const successMessage = document.getElementById('successMessage');
+  contactForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const body = new URLSearchParams(new FormData(contactForm)).toString();
+    fetch('/', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body
+    }).then(() => {
+      contactForm.reset();
+      contactForm.style.display = 'none';
+      successMessage.style.display = 'block';
+    }).catch(() => alert('Error al enviar el formulario.'));
+  });
 </script>
 
 </body>
