@@ -12,7 +12,14 @@
       font-family: 'Roboto', sans-serif;
       background-color: #0a0a0a;
       color: #f0f0f0;
+      opacity: 0;
+      animation: fadeInBody 2s forwards;
     }
+
+    @keyframes fadeInBody {
+      to { opacity: 1; }
+    }
+
     header {
       text-align: center;
       padding: 80px 20px 40px;
@@ -21,30 +28,26 @@
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
+      background-attachment: fixed;
       position: relative;
     }
+
     header img {
       height: 120px;
       margin-bottom: 20px;
       opacity: 0;
       animation: fadeIn 2s forwards;
     }
+
     @keyframes fadeIn {
       to { opacity: 1; }
     }
-    header h1 {
-      font-size: 3em;
-      color: #ff6600;
-      margin-bottom: 10px;
-    }
-    header p {
-      font-size: 1.2em;
-      color: #cccccc;
-    }
+
     nav {
       text-align: center;
       margin: 30px 0;
     }
+
     nav a {
       color: #ff6600;
       text-decoration: none;
@@ -52,38 +55,44 @@
       font-weight: bold;
       font-size: 1em;
     }
+
     section {
       max-width: 1000px;
       margin: auto;
       padding: 40px 20px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
     }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     h2 {
       color: #ff6600;
       margin-bottom: 20px;
     }
+
     .services {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 30px;
     }
+
     .service {
       background: #1a1a1a;
       padding: 20px;
       border-radius: 10px;
     }
-    footer {
-      text-align: center;
-      padding: 30px 20px;
-      font-size: 0.9em;
-      background: #1c1c1c;
-      color: #666;
-      margin-top: 40px;
-    }
+
     .contact-form {
       display: flex;
       flex-direction: column;
       gap: 15px;
     }
+
     .contact-form input, .contact-form textarea {
       padding: 10px;
       border: none;
@@ -91,6 +100,7 @@
       background: #2a2a2a;
       color: #fff;
     }
+
     .contact-form button {
       background: #ff6600;
       color: #fff;
@@ -101,10 +111,20 @@
       cursor: pointer;
       transition: all 0.3s ease;
     }
+
     .contact-form button:hover {
       background: #ff8533;
       transform: scale(1.05);
       box-shadow: 0 0 10px #ff8533;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 0.9em;
+      background: #1c1c1c;
+      color: #666;
+      margin-top: 40px;
     }
 
     .carousel {
@@ -114,10 +134,12 @@
       margin: 40px auto;
       border-radius: 10px;
     }
+
     .carousel-track {
       display: flex;
       transition: transform 0.5s ease-in-out;
     }
+
     .carousel-track img {
       width: 100%;
       height: auto;
@@ -125,9 +147,11 @@
       border-radius: 10px;
       transition: transform 0.5s ease-in-out;
     }
+
     .carousel-track img.active {
       transform: scale(1.05);
     }
+
     .carousel-btn {
       position: absolute;
       top: 50%;
@@ -140,12 +164,15 @@
       padding: 0 10px;
       border-radius: 50%;
     }
+
     .carousel-btn.prev {
       left: 10px;
     }
+
     .carousel-btn.next {
       right: 10px;
     }
+
     .carousel-btn:hover {
       background: #ff8533;
     }
@@ -153,6 +180,20 @@
     @media (max-width: 768px) {
       .carousel {
         max-width: 90%;
+      }
+    }
+
+    .burbuja-latido {
+      animation: latido 2s infinite ease-in-out;
+      transform-origin: center;
+    }
+
+    @keyframes latido {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
       }
     }
   </style>
@@ -169,6 +210,9 @@
     <a href="#portfolio">Portafolio</a>
     <a href="#contacto">Contacto</a>
   </nav>
+  <div class="burbuja-latido" style="position: absolute; top: 20px; right: 20px;">
+    <img src="images/representacion-burbuja.png" alt="Inspiración de IA" style="width: 100px;">
+  </div>
 </header>
 
 <section id="quienes-somos">
@@ -250,12 +294,22 @@ function updateCarousel() {
 }
 
 updateCarousel();
+
+// Scroll reveal
+const sections = document.querySelectorAll('section');
+window.addEventListener('scroll', () => {
+  const trigger = window.innerHeight / 1.2;
+  sections.forEach(section => {
+    const sectionTop = section.getBoundingClientRect().top;
+    if (sectionTop < trigger) {
+      section.classList.add('visible');
+    }
+  });
+});
 </script>
 
 </body>
 </html>
-
-
 
 
 
