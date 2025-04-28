@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "http://kreo-ia-studio.netlify.app/*"
+  to =   "https://kreo-ia-studio.netlify.app/:splat"
+  status = 301
+  force = true
