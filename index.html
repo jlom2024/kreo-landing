@@ -108,42 +108,7 @@
 
 <footer><p>KREO IA Studio © 2025 | Todos los derechos reservados</p></footer>
 
-<script>
-  // Scroll reveal
-  const sections = document.querySelectorAll('section');
-  window.addEventListener('scroll', () => {
-    const trigger = window.innerHeight / 1.2;
-    sections.forEach(sec => { if (sec.getBoundingClientRect().top < trigger) sec.classList.add('visible'); });
-  });
-</script>
 
-<script>
-  // Carousel
-  const track = document.querySelector('.carousel-track');
-  const images = Array.from(track.children);
-  const prevBtn = document.querySelector('.carousel-btn.prev');
-  const nextBtn = document.querySelector('.carousel-btn.next');
-  let index = 0;
-  function updateCarousel() {
-    const width = images[0].clientWidth;
-    track.style.transform = `translateX(-${index * width}px)`;
-    images.forEach(img => img.classList.toggle('active', images.indexOf(img) === index));
-  }
-  prevBtn.addEventListener('click', () => { index = (index - 1 + images.length) % images.length; updateCarousel(); });
-  nextBtn.addEventListener('click', () => { index = (index + 1) % images.length; updateCarousel(); });
-  updateCarousel();
-</script>
-
-<script>
-  // AJAX form Netlify
-  const form = document.getElementById('contactForm');
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    fetch('/', { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body: new URLSearchParams(new FormData(form)).toString() })
-      .then(() => { form.style.display='none'; document.getElementById('successMessage').style.display='block'; })
-      .catch(() => alert('Error al enviar.'));
-  });
-</script>
 
 </body>
 </html>
