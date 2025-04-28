@@ -105,7 +105,8 @@
   </header>
 
   <section id="contacto">
-    <form action="https://formsubmit.co/tu-email@ejemplo.com" method="POST">
+   <form name="contacto" method="POST" data-netlify="true">
+      <input type="hidden" name="form-name" value="contacto">
       <input type="text" name="name" placeholder="Tu nombre" required>
       <input type="email" name="email" placeholder="Tu correo" required>
       <textarea name="message" placeholder="Tu mensaje" rows="4" required></textarea>
