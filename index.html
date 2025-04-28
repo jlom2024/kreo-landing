@@ -21,19 +21,15 @@
     }
 
     header {
+      position: relative;
       text-align: center;
-      /* Reducción de padding para disminuir altura del header */
       padding: 60px 20px;
-      /* Altura mínima más controlada */
-      min-height: 300px;
-      /* Overlay suave y fondo con imagen */
+      min-height: 350px;
       background: linear-gradient(180deg, rgba(10,10,10,0.8) 0%, rgba(28,28,28,0.8) 100%), url('images/fondo-soñado.jpg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      /* Eliminamos el fondo fijo para mejor responsividad */
-      background-attachment: fixed;
-      position: relative;
+      background-attachment: scroll;
     }
 
     header img {
@@ -41,6 +37,8 @@
       margin-bottom: 20px;
       opacity: 0;
       animation: fadeIn 2s forwards;
+      z-index: 5;
+      position: relative;
     }
 
     @keyframes fadeIn {
@@ -50,6 +48,8 @@
     nav {
       text-align: center;
       margin: 30px 0;
+      position: relative;
+      z-index: 5;
     }
 
     nav a {
@@ -58,6 +58,25 @@
       margin: 0 15px;
       font-weight: bold;
       font-size: 1em;
+    }
+
+    .burbuja-latido {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 10;
+      animation: latido 2s infinite ease-in-out;
+      transform-origin: center;
+    }
+
+    .burbuja-latido img {
+      width: 120px;
+      display: block;
+    }
+
+    @keyframes latido {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
     }
 
     section {
@@ -169,36 +188,14 @@
       border-radius: 50%;
     }
 
-    .carousel-btn.prev {
-      left: 10px;
-    }
+    .carousel-btn.prev { left: 10px; }
+    .carousel-btn.next { right: 10px; }
 
-    .carousel-btn.next {
-      right: 10px;
-    }
-
-    .carousel-btn:hover {
-      background: #ff8533;
-    }
+    .carousel-btn:hover { background: #ff8533; }
 
     @media (max-width: 768px) {
-      .carousel {
-        max-width: 90%;
-      }
-    }
-
-    .burbuja-latido {
-      animation: latido 2s infinite ease-in-out;
-      transform-origin: center;
-    }
-
-    @keyframes latido {
-      0%, 100% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.05);
-      }
+      .carousel { max-width: 90%; }
+      .burbuja-latido img { width: 80px; }
     }
   </style>
 </head>
@@ -214,8 +211,8 @@
     <a href="#portfolio">Portafolio</a>
     <a href="#contacto">Contacto</a>
   </nav>
-  <div class="burbuja-latido" style="position: absolute; top: 20px; right: 20px;">
-    <img src="images/representacion-burbuja.png" alt="Inspiración de IA" style="width: 100px;">
+  <div class="burbuja-latido">
+    <img src="images/representacion-burbuja.png" alt="Inspiración de IA">
   </div>
 </header>
 
@@ -227,22 +224,10 @@
 <section id="servicios">
   <h2>Servicios</h2>
   <div class="services">
-    <div class="service">
-      <h3>Carteleras Cinematográficas</h3>
-      <p>Historias visuales que capturan miradas y emociones.</p>
-    </div>
-    <div class="service">
-      <h3>Sátiras Políticas</h3>
-      <p>Ironía elegante y crítica inteligente, siempre impactante.</p>
-    </div>
-    <div class="service">
-      <h3>Memes Realistas</h3>
-      <p>Humor visualmente impecable, con estilo y potencia.</p>
-    </div>
-    <div class="service">
-      <h3>Storytelling para Marcas</h3>
-      <p>Relatos visuales que enamoran, venden y trascienden.</p>
-    </div>
+    <div class="service"><h3>Carteleras Cinematográficas</h3><p>Historias visuales que capturan miradas y emociones.</p></div>
+    <div class="service"><h3>Sátiras Políticas</h3><p>Ironía elegante y crítica inteligente, siempre impactante.</p></div>
+    <div class="service"><h3>Memes Realistas</h3><p>Humor visualmente impecable, con estilo y potencia.</p></div>
+    <div class="service"><h3>Storytelling para Marcas</h3><p>Relatos visuales que enamoran, venden y trascienden.</p></div>
   </div>
 </section>
 
@@ -269,9 +254,7 @@
   </form>
 </section>
 
-<footer>
-  <p>KREO IA Studio © 2025 | Todos los derechos reservados</p>
-</footer>
+<footer><p>KREO IA Studio © 2025 | Todos los derechos reservados</p></footer>
 
 <script>
 const track = document.querySelector('.carousel-track');
@@ -280,36 +263,15 @@ const nextBtn = document.querySelector('.carousel-btn.next');
 const images = document.querySelectorAll('.carousel-track img');
 let index = 0;
 
-nextBtn.addEventListener('click', () => {
-  index = (index + 1) % images.length;
-  updateCarousel();
-});
-
-prevBtn.addEventListener('click', () => {
-  index = (index - 1 + images.length) % images.length;
-  updateCarousel();
-});
-
-function updateCarousel() {
-  const width = images[0].clientWidth;
-  track.style.transform = `translateX(-${index * width}px)`;
-  images.forEach(img => img.classList.remove('active'));
-  images[index].classList.add('active');
-}
-
+nextBtn.addEventListener('click', () => { index = (index + 1) % images.length; updateCarousel(); });
+prevBtn.addEventListener('click', () => { index = (index - 1 + images.length) % images.length; updateCarousel(); });
+function updateCarousel() { const width = images[0].clientWidth; track.style.transform = `translateX(-${index * width}px)`; images.forEach(img => img.classList.remove('active')); images[index].classList.add('active'); }
 updateCarousel();
 
 // Scroll reveal
 const sections = document.querySelectorAll('section');
-window.addEventListener('scroll', () => {
-  const trigger = window.innerHeight / 1.2;
-  sections.forEach(section => {
-    const sectionTop = section.getBoundingClientRect().top;
-    if (sectionTop < trigger) section.classList.add('visible');
-  });
-});
+window.addEventListener('scroll', () => { const trigger = window.innerHeight / 1.2; sections.forEach(section => { if (section.getBoundingClientRect().top < trigger) section.classList.add('visible'); }); });
 </script>
 
 </body>
 </html>
-
