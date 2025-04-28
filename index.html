@@ -100,11 +100,10 @@
     }
     .carousel-track {
       display: flex;
-      width: 1800px;
       transition: transform 0.5s ease-in-out;
     }
     .carousel-track img {
-      width: 600px;
+      width: 100%;
       height: auto;
       flex-shrink: 0;
       border-radius: 10px;
@@ -138,9 +137,6 @@
     @media (max-width: 768px) {
       .carousel {
         max-width: 90%;
-      }
-      .carousel-track img {
-        width: 100%;
       }
     }
   </style>
@@ -217,23 +213,24 @@
 const track = document.querySelector('.carousel-track');
 const prevBtn = document.querySelector('.carousel-btn.prev');
 const nextBtn = document.querySelector('.carousel-btn.next');
+const images = document.querySelectorAll('.carousel-track img');
 let index = 0;
 
 nextBtn.addEventListener('click', () => {
-  index = (index + 1) % track.children.length;
+  index = (index + 1) % images.length;
   updateCarousel();
 });
 
 prevBtn.addEventListener('click', () => {
-  index = (index - 1 + track.children.length) % track.children.length;
+  index = (index - 1 + images.length) % images.length;
   updateCarousel();
 });
 
 function updateCarousel() {
-  const width = track.clientWidth;
+  const width = images[0].clientWidth;
   track.style.transform = `translateX(-${index * width}px)`;
-  Array.from(track.children).forEach(img => img.classList.remove('active'));
-  track.children[index].classList.add('active');
+  images.forEach(img => img.classList.remove('active'));
+  images[index].classList.add('active');
 }
 
 updateCarousel();
@@ -241,5 +238,6 @@ updateCarousel();
 
 </body>
 </html>
+
 
 
