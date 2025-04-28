@@ -24,12 +24,15 @@
       position: relative;
       text-align: center;
       padding: 60px 20px;
-      min-height: 350px;
+      /* Ocupa toda la altura de la ventana para permitir scroll del background */
+      min-height: 100vh;
       background: linear-gradient(180deg, rgba(10,10,10,0.8) 0%, rgba(28,28,28,0.8) 100%), url('images/fondo-soñado.jpg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      background-attachment: scroll;
+      /* Fijo para parallax: el background se queda y se ve al hacer scroll */
+      background-attachment: fixed;
+      overflow: hidden;
     }
 
     header img {
