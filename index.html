@@ -1,181 +1,49 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <!-- Forzar uso de HTTPS en recursos y formularios -->
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="favicon.png">
   <title>KREO IA Studio</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
-      font-family: 'Roboto', sans-serif;
-      background-color: #0a0a0a;
-      color: #f0f0f0;
-      opacity: 0;
-      animation: fadeInBody 2s forwards;
-    }
-    @keyframes fadeInBody {
-      to { opacity: 1; }
-    }
-    header {
-      position: relative;
-      text-align: center;
-      padding: 60px 20px;
-      min-height: 100vh;
+    body { margin: 0; font-family: 'Roboto', sans-serif; background-color: #0a0a0a; color: #f0f0f0; opacity: 0; animation: fadeInBody 2s forwards; }
+    @keyframes fadeInBody { to { opacity: 1; } }
+    header { position: relative; text-align: center; padding: 60px 20px; min-height: 100vh;
       background: linear-gradient(180deg, rgba(10,10,10,0.8) 0%, rgba(28,28,28,0.8) 100%), url('images/fondo-soñado.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      overflow: hidden;
-    }
-    header img {
-      height: 120px;
-      margin-bottom: 20px;
-      opacity: 0;
-      animation: fadeIn 2s forwards;
-      z-index: 5;
-      position: relative;
-    }
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-    nav {
-      text-align: center;
-      margin: 30px 0;
-      position: relative;
-      z-index: 5;
-    }
-    nav a {
-      color: #ff6600;
-      text-decoration: none;
-      margin: 0 15px;
-      font-weight: bold;
-      font-size: 1em;
-    }
-    .burbuja-latido {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      z-index: 10;
-      animation: latido 2s infinite ease-in-out;
-      transform-origin: center;
-    }
-    .burbuja-latido img {
-      width: 120px;
-      display: block;
-    }
-    @keyframes latido {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-    section {
-      max-width: 1000px;
-      margin: auto;
-      padding: 40px 20px;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    }
-    section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    h2 {
-      color: #ff6600;
-      margin-bottom: 20px;
-    }
-    .services {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
-    }
-    .service {
-      background: #1a1a1a;
-      padding: 20px;
-      border-radius: 10px;
-    }
-    .contact-form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-    .contact-form input,
-    .contact-form textarea {
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      background: #2a2a2a;
-      color: #fff;
-      width: 100%;
-      box-sizing: border-box;
-    }
-    .contact-form button {
-      background: #ff6600;
-      color: #fff;
-      padding: 12px;
-      border: none;
-      border-radius: 5px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      width: 150px;
-      align-self: flex-start;
-    }
-    .contact-form button:hover {
-      background: #ff8533;
-      transform: scale(1.05);
-      box-shadow: 0 0 10px #ff8533;
-    }
-    footer {
-      text-align: center;
-      padding: 30px 20px;
-      font-size: 0.9em;
-      background: #1c1c1c;
-      color: #666;
-      margin-top: 40px;
-    }
-    .carousel {
-      position: relative;
-      overflow: hidden;
-      max-width: 600px;
-      margin: 40px auto;
-      border-radius: 10px;
-    }
-    .carousel-track {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
-    }
-    .carousel-track img {
-      width: 100%;
-      height: auto;
-      flex-shrink: 0;
-      border-radius: 10px;
-      transition: transform 0.5s ease-in-out;
-    }
-    .carousel-track img.active {
-      transform: scale(1.05);
-    }
-    .carousel-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: #ff6600;
-      border: none;
-      color: #fff;
-      font-size: 2em;
-      cursor: pointer;
-      padding: 0 10px;
-      border-radius: 50%;
-    }
-    .carousel-btn.prev { left: 10px; }
-    .carousel-btn.next { right: 10px; }
+      background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; overflow: hidden; }
+    header img { height: 120px; margin-bottom: 20px; opacity: 0; animation: fadeIn 2s forwards; z-index: 5; position: relative; }
+    @keyframes fadeIn { to { opacity: 1; } }
+    nav { text-align: center; margin: 30px 0; position: relative; z-index: 5; }
+    nav a { color: #ff6600; text-decoration: none; margin: 0 15px; font-weight: bold; font-size: 1em; }
+    .burbuja-latido { position: absolute; top: 20px; right: 20px; z-index: 10; animation: latido 2s infinite ease-in-out; transform-origin: center; }
+    .burbuja-latido img { width: 120px; display: block; }
+    @keyframes latido { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+    section { max-width: 1000px; margin: auto; padding: 40px 20px; opacity: 0; transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+    section.visible { opacity: 1; transform: translateY(0); }
+    h2 { color: #ff6600; margin-bottom: 20px; }
+    .services { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+    .service { background: #1a1a1a; padding: 20px; border-radius: 10px; }
+    .contact-form { display: flex; flex-direction: column; gap: 15px; }
+    .contact-form input, .contact-form textarea { padding: 10px; border: none; border-radius: 5px;
+      background: #2a2a2a; color: #fff; width: 100%; box-sizing: border-box; }
+    .contact-form button { background: #ff6600; color: #fff; padding: 12px; border: none; border-radius: 5px;
+      font-weight: bold; cursor: pointer; transition: all 0.3s ease; width: 150px; align-self: flex-start; }
+    .contact-form button:hover { background: #ff8533; transform: scale(1.05); box-shadow: 0 0 10px #ff8533; }
+    footer { text-align: center; padding: 30px 20px; font-size: 0.9em; background: #1c1c1c; color: #666; margin-top: 40px; }
+    .carousel { position: relative; overflow: hidden; max-width: 600px; margin: 40px auto; border-radius: 10px; }
+    .carousel-track { display: flex; transition: transform 0.5s ease-in-out; }
+    .carousel-track img { width: 100%; height: auto; flex-shrink: 0; border-radius: 10px;
+      transition: transform 0.5s ease-in-out; }
+    .carousel-track img.active { transform: scale(1.05); }
+    .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%);
+      background: #ff6600; border: none; color: #fff; font-size: 2em; cursor: pointer; padding: 0 10px; border-radius: 50%; }
+    .carousel-btn.prev { left: 10px; } .carousel-btn.next { right: 10px; }
     .carousel-btn:hover { background: #ff8533; }
-    @media (max-width: 768px) {
-      .carousel { max-width: 90%; }
-      .burbuja-latido img { width: 80px; }
-    }
+    @media (max-width: 768px) { .carousel { max-width: 90%; } .burbuja-latido img { width: 80px; } }
   </style>
 </head>
 <body>
@@ -225,8 +93,7 @@
 
 <section id="contacto">
   <h2>Contacto</h2>
-  <!-- Formulario Ajax seguro para Netlify sin recarga -->
-  <form id="contactForm" name="contact" method="POST" data-netlify="true" class="contact-form" autocomplete="on">
+  <form id="contactForm" name="contact" action="/" method="POST" data-netlify="true" class="contact-form" autocomplete="on">
     <input type="hidden" name="form-name" value="contact">
     <p hidden><label>Deja este campo vacío: <input name="bot-field" autocomplete="off"></label></p>
     <input name="name" type="text" placeholder="Tu Nombre" required autocomplete="name">
@@ -246,43 +113,35 @@
   const sections = document.querySelectorAll('section');
   window.addEventListener('scroll', () => {
     const trigger = window.innerHeight / 1.2;
-    sections.forEach(section => {
-      if (section.getBoundingClientRect().top < trigger) {
-        section.classList.add('visible');
-      }
-    });
+    sections.forEach(sec => { if (sec.getBoundingClientRect().top < trigger) sec.classList.add('visible'); });
   });
-
-  // Carousel functionality
-  const track = document.querySelector('.carousel-track');
-  const prevBtn = document.querySelector('.carousel-btn.prev');
-  const nextBtn = document.querySelector('.carousel-btn.next');
-  const images = document.querySelectorAll('.carousel-track img');
-  let index = 0;
-
-  nextBtn.addEventListener('click', () => {
-    index = (index + 1) % images.length;
-    updateCarousel();
-}
-updateCarousel();
 </script>
 
-<!-- Script para envío AJAX del formulario -->
 <script>
-  const contactForm = document.getElementById('contactForm');
-  const successMessage = document.getElementById('successMessage');
-  contactForm.addEventListener('submit', e => {
+  // Carousel
+  const track = document.querySelector('.carousel-track');
+  const images = Array.from(track.children);
+  const prevBtn = document.querySelector('.carousel-btn.prev');
+  const nextBtn = document.querySelector('.carousel-btn.next');
+  let index = 0;
+  function updateCarousel() {
+    const width = images[0].clientWidth;
+    track.style.transform = `translateX(-${index * width}px)`;
+    images.forEach(img => img.classList.toggle('active', images.indexOf(img) === index));
+  }
+  prevBtn.addEventListener('click', () => { index = (index - 1 + images.length) % images.length; updateCarousel(); });
+  nextBtn.addEventListener('click', () => { index = (index + 1) % images.length; updateCarousel(); });
+  updateCarousel();
+</script>
+
+<script>
+  // AJAX form Netlify
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit', e => {
     e.preventDefault();
-    const body = new URLSearchParams(new FormData(contactForm)).toString();
-    fetch('/', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      body
-    }).then(() => {
-      contactForm.reset();
-      contactForm.style.display = 'none';
-      successMessage.style.display = 'block';
-    }).catch(() => alert('Error al enviar el formulario.'));
+    fetch('/', { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body: new URLSearchParams(new FormData(form)).toString() })
+      .then(() => { form.style.display='none'; document.getElementById('successMessage').style.display='block'; })
+      .catch(() => alert('Error al enviar.'));
   });
 </script>
 
