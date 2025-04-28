@@ -90,11 +90,53 @@
   background: #ff8533;
   transition: 0.3s;
 }
+.carousel {
+  position: relative;
+  overflow: hidden;
+  max-width: 600px;
+  margin: 40px auto;
+  border-radius: 10px;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-track img {
+  width: 100%;
+  flex-shrink: 0;
+  border-radius: 10px;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #ff6600;
+  border: none;
+  color: #fff;
+  font-size: 2em;
+  cursor: pointer;
+  padding: 0 10px;
+  border-radius: 50%;
+}
+
+.carousel-btn.prev {
+  left: 10px;
+}
+
+.carousel-btn.next {
+  right: 10px;
+}
+
+.carousel-btn:hover {
+  background: #ff8533;
+}
 
   </style>
 </head>
 <body>
-
 <header>
   <img src="LogoR.png" alt="KREO IA Studio Logo" style="height: 120px; margin-bottom: 20px;">
   <h1 style="color: #ff6600;">KREO IA Studio</h1>
@@ -106,8 +148,6 @@
     <a href="#contacto">Contacto</a>
   </nav>
 </header>
-
-
   <h1>KREO IA Studio</h1>
   <p>Creamos realidades. Contamos historias. Impulsamos sueños.</p>
   <nav>
@@ -117,7 +157,6 @@
     <a href="#contacto">Contacto</a>
   </nav>
 </header>
-
 <section id="quienes-somos">
   <h2>¿Quiénes Somos?</h2>
   <p>En KREO IA Studio fusionamos creatividad, inteligencia artificial y pasión humana para transformar ideas en realidades impactantes. No solo diseñamos imágenes: damos vida a emociones, memorias y sueños.</p>
@@ -147,9 +186,16 @@
 
 <section id="portfolio">
   <h2>Portafolio</h2>
-  <p>Explora algunas de nuestras creaciones más recientes. (Aquí luego podrás insertar galería si quieres)</p>
+  <div class="carousel">
+    <div class="carousel-track">
+      <img src="img1.jpg" alt="Proyecto 1">
+      <img src="img2.jpg" alt="Proyecto 2">
+      <img src="img3.jpg" alt="Proyecto 3">
+    </div>
+    <button class="carousel-btn prev">‹</button>
+    <button class="carousel-btn next">›</button>
+  </div>
 </section>
-
 <section id="contacto">
   <h2>Contacto</h2>
   <form class="contact-form">
@@ -163,6 +209,29 @@
 <footer>
   <p>KREO IA Studio © 2025 | Todos los derechos reservados</p>
 </footer>
+  
+<script>
+const track = document.querySelector('.carousel-track');
+const prevBtn = document.querySelector('.carousel-btn.prev');
+const nextBtn = document.querySelector('.carousel-btn.next');
+
+let index = 0;
+
+nextBtn.addEventListener('click', () => {
+  index = (index + 1) % track.children.length;
+  updateCarousel();
+});
+
+prevBtn.addEventListener('click', () => {
+  index = (index - 1 + track.children.length) % track.children.length;
+  updateCarousel();
+});
+
+function updateCarousel() {
+  const width = track.clientWidth;
+  track.style.transform = `translateX(-${index * width}px)`;
+}
+</script>
 
 </body>
 </html>
