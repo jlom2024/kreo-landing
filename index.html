@@ -225,12 +225,12 @@
 
 <section id="contacto">
   <h2>Contacto</h2>
-  <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="contact-form">
+  <form name="contact" action="/" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" autocomplete="on" class="contact-form">
     <input type="hidden" name="form-name" value="contact">
-    <p hidden><label>Deja este campo vacío: <input name="bot-field"></label></p>
-    <input name="name" type="text" placeholder="Tu Nombre" required>
-    <input name="email" type="email" placeholder="Tu Correo" required>
-    <textarea name="message" rows="5" placeholder="Tu Mensaje" required></textarea>
+    <p hidden><label>Deja este campo vacío: <input name="bot-field" autocomplete="off"></label></p>
+    <input name="name" type="text" placeholder="Tu Nombre" required autocomplete="name">
+    <input name="email" type="email" placeholder="Tu Correo" required autocomplete="email">
+    <textarea name="message" rows="5" placeholder="Tu Mensaje" required autocomplete="on"></textarea>
     <button type="submit">Enviar Mensaje</button>
   </form>
 </section>
